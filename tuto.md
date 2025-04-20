@@ -3,6 +3,8 @@
 ## Requisitos
 - Tener un repositorio de git con el servidor a ejecutar
 - Tener npm instalado en la vm
+- Tener git instalado en la vm
+- Tener cron instalado en la vm
 
 ## 1. Instalar pm2 para mantener el servicio activo
 
@@ -11,7 +13,9 @@
 Comenzar a correr el servicio 
 
 `pm2 start server.js --name backend`
+
 `pm2 save`
+
 `pm2 startup`
 
 ## 2. Crear el script que actualizará el repo
@@ -32,7 +36,7 @@ NEW_HASH=$(git rev-parse HEAD)
 if [ "$CURRENT_HASH" != "$NEW_HASH" ]; then
   echo "Cambios detectados. Reiniciando app..."
   npm install --production
-  pm2 restart backend-app
+  pm2 restart backend
 else
   echo "Sin cambios."
 fi
